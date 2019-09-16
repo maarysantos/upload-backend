@@ -1,24 +1,17 @@
+const dotenv = require('dotenv').config();
+
 const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 
+var AWS = require('ibm-cos-sdk');
+
+
 module.exports ={
     //pasta destino do arquivo
     dest: path.resolve(__dirname, "..", "..", "tmp", "uploads"),
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads"));
-          },
-          filename: (req, file, cb) => {
-              crypto.randomBytes(16, (err, hash)=>{
-                  if(err) cb(err);
-
-                  const fileName = `${hash.toString("hex")}-${file.originalname}`;
-                  cb(null, fileName);
-              })
-      
-            }
-    }),
+    storage:new AWS.S3(crdntials,
+        ),
     //limites de arquivos, quantidade e tamanho do arquivo
     limits: {
         fileSize: 2 * 1024 * 1024
