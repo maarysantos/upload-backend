@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true,  useUnifiedTopology: true});
 app.use(require('./routes'));
 
 app.use(express.json);
